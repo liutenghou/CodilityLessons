@@ -1,8 +1,4 @@
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class CodilityPractice {
 
@@ -13,7 +9,80 @@ public class CodilityPractice {
 		int[] input = {1,2,3,4};
 //		System.out.println(rotateRight(input, 3));
 		int[] input2 = {2};
-		System.out.println(permMissingElem(input2));
+//		System.out.println(permMissingElem(input2));
+		int[] input3 = {2,3,4};
+		System.out.println(daysOfWeek("Wed", 12));
+		
+	}
+	
+	//find day of week that is K days after S day of week
+	static String daysOfWeek(String S, int K) {
+		
+		String returnDay = S;
+		
+		java.util.Map<String, Integer> dateIndexMap = new java.util.HashMap<String, Integer>();
+		dateIndexMap.put("Mon", 0);
+		dateIndexMap.put("Tue", 1);
+		dateIndexMap.put("Wed", 2);
+		dateIndexMap.put("Thu", 3);
+		dateIndexMap.put("Fri", 4);
+		dateIndexMap.put("Sat", 5);
+		dateIndexMap.put("Sun", 6);
+		
+		java.util.Map<Integer, String> intIndexMap = new java.util.HashMap<Integer, String>();
+		intIndexMap.put(0, "Mon");
+		intIndexMap.put(1, "Tue");
+		intIndexMap.put(2, "Wed");
+		intIndexMap.put(3, "Thu");
+		intIndexMap.put(4, "Fri");
+		intIndexMap.put(5, "Sat");
+		intIndexMap.put(6, "Sun");
+		
+		//edge case
+		if(!dateIndexMap.containsKey(S)) {
+			return returnDay;
+		}
+		if(K < 1) {
+			return returnDay;
+		}
+		
+		//get the start
+		
+		int dayOfWeek = (K + dateIndexMap.get(S)) % 7;
+		returnDay = intIndexMap.get(dayOfWeek);
+		
+		return returnDay;
+		
+	}
+	
+	static int smallestPossibleInteger(int[] A) {
+		//edge cases
+		if(A == null || A.length == 0) {
+			return 1;
+		}
+		
+		int smallestInt = 1;
+		
+		java.util.Arrays.sort(A);
+		
+		for(int i=0; i<A.length; i++) {
+			int num = A[i];
+			if(num < 1) {
+				continue;
+			}
+			
+			if(num == smallestInt-1) { //duplicate
+				continue;
+			}
+			
+			if(num == smallestInt) {
+				smallestInt++;
+				continue;
+			}else {
+				break;
+			}
+		}
+		return smallestInt;
 	}
 	
 	static int permMissingElem(int[] a) {
